@@ -2,11 +2,13 @@ const express=require("express")
 const app=express()
 const cors=require("cors")
 const employees=require("./routes/employes")
+const path=require("path")
 app.use(express.json())
+app.use(express.static(path.join(__dirname,"public")))
 app.use(cors())
 app.use("/api",employees)
 app.get("/",(req,res)=>{
-    res.send("Hello World Backend is working")
+    res.sendFile(path.join(__dirname,"views","index.html"))
 })
 
 app.listen(3000,(req,res)=>{

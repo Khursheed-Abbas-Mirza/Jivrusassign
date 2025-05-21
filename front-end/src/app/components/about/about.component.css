@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.about{
+    width: 100%;
+    height: auto;
+    padding: 45px;
+    background-color: transparent;
+    color: whitesmoke;
+}
+a{
+    text-decoration: none;
+    color: aqua;
+    cursor: pointer;
+}

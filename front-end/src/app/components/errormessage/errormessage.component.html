@@ -1,0 +1,16 @@
+ <div class="msg" >
+
+                @if(field.invalid && (field.dirty || field.touched)){
+                    @if(field.hasError('required')){
+                        <span class="errmsg">* {{name}} is required field</span>
+                    }
+                    @if(field.hasError('minlength')){
+                        <span class="errmsg">* {{name}} field atleast required 4 chracters</span>
+                        
+                    }
+                    @if(field.hasError('pattern')){
+                        <span class="errmsg">* Invalid {{name}}</span>
+                        
+                    }
+                }
+</div>

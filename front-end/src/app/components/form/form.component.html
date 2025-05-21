@@ -1,0 +1,27 @@
+<div class="container">
+    <form #empform="ngForm" (ngSubmit)="submit(empform.value)">
+        <p style="text-align: center;color: whitesmoke; font-family: 'Times New Roman'; margin-bottom: 32px;font-size: 18px;">{{currentuser()?.id?"Update Employee":"Add Employee"}}</p>
+        <div class="input-group">
+            <input type="text" #uname="ngModel" id="name" placeholder=" " minlength="4" name="name" [ngModel]="currentuser()?.name" required>
+            <label for="name">Name</label>
+        </div>
+       <form-errormessage [field]="uname" name="name"/>
+        <div class="input-group">
+            <input type="email" #email="ngModel" id="email" placeholder=" "  name="email" pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"   [ngModel]="currentuser()?.email" required>
+            <label for="email">Email</label></div>
+            <form-errormessage [field]="email" name="email"/>
+        <div class="input-group">
+            <input type="text" #dept="ngModel" id="dept" placeholder=" " minlength="4"  name="department" [ngModel]="currentuser()?.department" required>
+            <label for="dept">Department</label></div>
+            <form-errormessage [field]="dept" name="dept"/>
+        <div class="input-group">
+            <input type="text" #role="ngModel" id="role" placeholder=" " minlength="4" name="role" [ngModel]="currentuser()?.role" required>
+            <label for="role">Role</label>
+        </div>
+          <form-errormessage [field]="role" name="role"/>
+        <div class="btn-group" >
+            <button style="background-color: #0f0;"  [disabled]="empform.invalid">Submit</button>
+            <button style="background-color: #f00;" (click)="hideform($event)">Cancel</button>
+        </div>
+    </form>
+</div>

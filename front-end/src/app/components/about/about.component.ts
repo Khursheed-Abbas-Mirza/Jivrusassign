@@ -10,3 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 export class AboutComponent {
 
 }
+@Component({
+  selector:'no-route',
+  template:"<h1>404 Not Found The route does not exist</h1>",
+  styles: 'h1{color: aqua;margin:45px}'
+})
+export class NoRouteComponent{}

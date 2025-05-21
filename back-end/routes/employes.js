@@ -38,6 +38,7 @@ let emps=[
     role: "Account Executive"
   }
 ];
+let id=emps.length
 Router.get("/",(req,res)=>{
     res.send({emps:emps})
 })
@@ -62,7 +63,8 @@ Router.post("/",checkSchema(empSchema),(req,res)=>{
         if(finduser){
             return res.send({success:false,msg:"A user already exists"})
         }
-        emps.push({id:emps.length+1,...userdata})
+        emps.push({id:++id,...userdata})
+
         res.send({success:true,emps:emps})
     } catch (error) {
         console.log(error)

@@ -2,39 +2,46 @@ const Router=require("express").Router()
 const {checkSchema,validationResult}=require("express-validator")
 const {empSchema}=require("../schemas/employeeSchema")
 let emps=[
+    {
+        id:1,
+        name: "Garrick",
+        email: "Garrick@example.com",
+        department: "Management",
+        role: "Admin"
+    },
   {
-    id:1,
+    id:2,
     name: "Alice Johnson",
     email: "alice.johnson@example.com",
-    department: "Engineering",
+    department: "IT",
     role: "Frontend Developer"
   },
   {
-    id:2,
+    id:3,
     name: "Bob Smith",
     email: "bob.smith@example.com",
-    department: "Engineering",
+    department: "HR",
     role: "Backend Developer"
   },
   {
-    id:3,
+    id:4,
     name: "Carol Lee",
     email: "carol.lee@example.com",
-    department: "Marketing",
+    department: "Sales",
     role: "Content Strategist"
   },
   {
-    id:4,
+    id:5,
     name: "David Kim",
     email: "david.kim@example.com",
-    department: "Human Resources",
+    department: "Finance",
     role: "HR Manager"
   },
   {
-    id:5,
+    id:6,
     name: "Eva Martinez",
     email: "eva.martinez@example.com",
-    department: "Sales",
+    department: "Development",
     role: "Account Executive"
   }
 ];
@@ -42,7 +49,7 @@ let id=emps.length
 Router.get("/",(req,res)=>{
     res.send({emps:emps})
 })
-Router.get("/:id",(req,res)=>{
+Router.get("/employee/:id",(req,res)=>{
     const {id}=req.params
     const finduser=emps.find((user)=>user.id==id)
     if(!finduser){
@@ -61,7 +68,7 @@ Router.post("/",checkSchema(empSchema),(req,res)=>{
         const email=userdata.email
         const finduser=emps.find((emp)=>emp.email===email)
         if(finduser){
-            return res.send({success:false,msg:"A user already exists"})
+            return res.send({success:false,msg:"A user already exists with this email"})
         }
         emps.push({id:++id,...userdata})
 
@@ -91,6 +98,11 @@ Router.put("/:id",checkSchema(empSchema),(req,res)=>{
         res.send("An Internal Server error",error)
     }
 })
+Router.get('/search',(req,res)=>{
+    const {q}=req.query
+    const finduser=emps.filter((user)=>user.name.toLowerCase().includes(q.toLowerCase()))
+    res.send({success:true,emps:finduser})
+})
 Router.delete("/:id",(req,res)=>{
     const {id}=req.params
     const finduser=emps.find((user)=>user.id==id)
@@ -101,3 +113,6 @@ Router.delete("/:id",(req,res)=>{
     res.send({success:true,emps:emps})
 })
 module.exports=Router
+
+
+

@@ -1,6 +1,12 @@
 <div class="container">
     <form #empform="ngForm" (ngSubmit)="submit(empform.value)">
         <p style="text-align: center;color: whitesmoke; font-family: 'Times New Roman'; margin-bottom: 32px;font-size: 18px;">{{currentuser()?.id?"Update Employee":"Add Employee"}}</p>
+        <div style="height: 10px;margin-top: 10px;margin-bottom: 30px;">
+            @if(showError){
+                <p style="color: red;">Please fill all  fields.</p>
+            }
+        
+        </div>
         <div class="input-group">
             <input type="text" #uname="ngModel" id="name" placeholder=" " minlength="4" name="name" [ngModel]="currentuser()?.name" required>
             <label for="name">Name</label>
@@ -11,7 +17,17 @@
             <label for="email">Email</label></div>
             <form-errormessage [field]="email" name="email"/>
         <div class="input-group">
-            <input type="text" #dept="ngModel" id="dept" placeholder=" " minlength="4"  name="department" [ngModel]="currentuser()?.department" required>
+
+             <select #dept="ngModel" id="dept" name="department"  [ngModel]="currentuser()?.department||'' "  required >
+                <option value="" disabled >Select Department</option>
+                <option value="IT" >IT</option>
+                <option value="Management" >Management</option>
+                <option value="HR">HR</option>
+                <option value="Admin">Admin</option>
+                <option value="Sales">Sales</option>
+                <option value="Finance">Finance</option>
+                <option value="Development">Development</option>
+             </select>
             <label for="dept">Department</label></div>
             <form-errormessage [field]="dept" name="dept"/>
         <div class="input-group">
@@ -20,7 +36,7 @@
         </div>
           <form-errormessage [field]="role" name="role"/>
         <div class="btn-group" >
-            <button style="background-color: #0f0;"  [disabled]="empform.invalid">Submit</button>
+            <button style="background-color: #0f0;"    >Submit</button>
             <button style="background-color: #f00;" (click)="hideform($event)">Cancel</button>
         </div>
     </form>

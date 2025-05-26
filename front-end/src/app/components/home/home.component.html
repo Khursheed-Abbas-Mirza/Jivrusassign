@@ -1,4 +1,9 @@
+
 <div class="home">
+    <div><div class="input-group">
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="SearchChange() " placeholder="search by name" id="search">
+        <label for="search"><mat-icon>search</mat-icon></label>
+    </div>
     <table>
    
         @if(showemps()){
@@ -31,3 +36,4 @@
 @if(showform()){
     <app-form/>
 }
+</div>

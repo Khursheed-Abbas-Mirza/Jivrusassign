@@ -4,18 +4,19 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 
-export class FormService {
+export class EmployeeService {
   http=inject(HttpClient)
   emps=signal<{id:number,name:string,email:string,department:string,role:string}[]>([])
   showform=signal(false)
   currentuser:any=signal(null)
-  getemployess(){
-     this.http.get("http://localhost:3000/api/").subscribe((res:any)=>{
-      this.emps.set(res.emps)
-    })
+  constructor(){
+    this.getemp()
   }
+  
   getemp(){
-    return this.emps
+    this.http.get("/api/").subscribe((res:any)=>{
+    this.emps.set(res.emps)
+  })
   }
   setemp(user:any){
     
@@ -27,12 +28,26 @@ export class FormService {
     this.currentuser.set(null)
   }
   updateemp(user:any){
-    return this.http.put(`http://localhost:3000/api/${user.id}`,user)
+    return this.http.put(`/api/${user.id}`,user)
   }
    addemp(user:any){
-    return this.http.post('http://localhost:3000/api/',user)
+    return this.http.post('/api/',user)
   }
   deleteemp(id:number){
-    return this.http.delete(`http://localhost:3000/api/${id}`)
+    return this.http.delete(`/api/${id}`)
   }
+  search(searchTerm: string) {
+   if (searchTerm.trim() !== '') {
+        this.http.get(`/api/search?q=${searchTerm}`)
+        .subscribe((response:any) => {
+          this.emps.set( response.emps);
+        });
+        return
+    }
+    this.getemp()
+  
+
+ 
+
+}
 }
